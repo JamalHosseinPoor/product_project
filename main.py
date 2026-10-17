@@ -43,11 +43,13 @@ new_product = ProductModel(
 )
 
 # 7. Add the new product if it does not already exist
-if not any(
-    product.p_code == new_product.p_code
-    for product in validated_data.products
-):
-    validated_data.products.append(new_product)
+# if not any(
+#     product.p_code == new_product.p_code
+#     for product in validated_data.products
+# ):
+for product in validated_data.products:
+    if product.p_code != new_product.p_code:
+        validated_data.products.append(new_product)
 
 # 8. Save the updated data to the JSON file
 with open("products.json", "w", encoding="utf-8") as file:
